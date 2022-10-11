@@ -10,19 +10,18 @@ const UserSchema = new mongoose.Schema({
   phone_no: {
     type: Number,
   },
-  address: {
-    street: {
-      type: String,
-    },
-    city: {
-      type: String,
-    },
-    state: {
-      type: String,
-    },
-    country: {
-      type: String,
-    }
+
+  street: {
+    type: String,
+  },
+  city: {
+    type: String,
+  },
+  state: {
+    type: String,
+  },
+  country: {
+    type: String,
   },
   login_id: {
     type: String,

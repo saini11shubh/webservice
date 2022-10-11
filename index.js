@@ -18,15 +18,11 @@ app.get('/', (req, res) => {
 })
 
 app.post('/save', async (req, res) => {
-  
   console.log(req.body);
-  //console.log(req.body.address.country)
-  //console.log(req.body.address.city)
- //console.log(req.body[address])
   if (!validator.isAlpha(req.body.first_name)) {
     return res.status(400).json({ response: 'Invalid first name' });
   }
-  if (!validator.isAlpha(req.body.last_name) ) {
+  if (!validator.isAlpha(req.body.last_name)) {
     return res.status(400).json({ response: 'Invalid last name' });
   }
 
@@ -34,19 +30,17 @@ app.post('/save', async (req, res) => {
     //throw new Error('Invalid mobile number!');
     return res.status(400).json({ response: 'Invalid mobile no' });
   }
-  
-  if (!validator.isAlpha(req.body.address.city)) {
-    //console.log(req.body.address.city)
-    //throw new Error('Invalid mobile number!');
-    return res.status(400).json({ response: 'Enter valid city'});
+
+  if (!validator.isAlpha(req.body.city)) {
+    return res.status(400).json({ response: 'Enter valid city' });
   }
 
-  // if (!validator.isAlpha(req.body.address.state)) {
-  //   return res.status(400).json({ response: 'Enter valid state'});
-  // }
-  // if (!validator.isAlpha(req.body.address.country)) {
-  //   return res.status(400).json({ response: 'Enter valid country'});
-  // }
+  if (!validator.isAlpha(req.body.state)) {
+    return res.status(400).json({ response: 'Enter valid state' });
+  }
+  if (!validator.isAlpha(req.body.country)) {
+    return res.status(400).json({ response: 'Enter valid country' });
+  }
 
   if (!validateUsername(req.body.login_id)) {
     return res.status(400).json({ response: 'Invalid username' });
@@ -58,7 +52,8 @@ app.post('/save', async (req, res) => {
   let datainfo = new UserData(req.body);
   console.log("DATA IS" + datainfo);
   await datainfo.save();
-  res.json(datainfo);
+  //  res.json(datainfo);
+  return res.redirect('./')
 });
 
 
