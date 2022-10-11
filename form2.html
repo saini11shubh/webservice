@@ -74,5 +74,18 @@
 <form action="view">
 <button type="submit" class="btn btn-primary">View All</button>
 </form>
+<script>
+    jQuery('#contactFormk').on('submit',function(e){
+        jQuery.ajax({
+            url:'save',
+            type:'get',
+            data:jQuery('#contactForm').serialize(),
+            success:function(result){
+                alert(result)
+            }
+        });
+        e.preventDefault();
+    })
+</script>
 </body>
 </html>
