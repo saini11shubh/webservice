@@ -19,6 +19,7 @@ app.get('/', (req, res) => {
 })
 
 app.post('/save', async (req, res) => {
+
   console.log(req.body);
   if (!validator.isAlpha(req.body.first_name)) {
     return res.status(400).json({ response: 'Invalid first name' });
@@ -58,11 +59,10 @@ app.post('/save', async (req, res) => {
   console.log("DATA IS" + datainfo);
   await datainfo.save();
   res.render('sucess.pug', {
-    dataList: datainfo
+  dataList: datainfo
   })
   //  res.json(datainfo);
  // return res.redirect('./')
-  
 });
 
 
