@@ -10,27 +10,37 @@ const UserSchema = new mongoose.Schema({
   phone_no: {
     type: Number,
   },
-
+  email: {
+    type: String,
+    required: true,
+  },
   street: {
     type: String,
+    required: true,
   },
   city: {
     type: String,
+    required: true,
   },
   state: {
     type: String,
+    required: true,
   },
   country: {
     type: String,
+    required: true,
   },
   login_id: {
     type: String,
     required: true,
-
   },
   password: {
     type: String,
     required: true,
+  },
+  date: {         // print date in india standard time 
+    type: String,
+    default: Date
   }
 })
 

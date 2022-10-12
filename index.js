@@ -2,6 +2,7 @@ const express = require('express')
 const ejs = require('ejs');
 const path = require("path");
 var validator = require('validator');
+const router = express.Router();
 const bodyParser = require('body-parser')
 const app = express()
 const port = process.env.PORT || 7000;
@@ -26,9 +27,13 @@ app.post('/save', async (req, res) => {
     return res.status(400).json({ response: 'Invalid last name' });
   }
 
-  if (!validator.isMobilePhone(req.body.phone_no, "en-IN")) {
+  if (!validateMobileno(req.body.phone_no)) {
     //throw new Error('Invalid mobile number!');
     return res.status(400).json({ response: 'Invalid mobile no' });
+  }
+
+  if (!validator.isEmail(req.body.email)) {
+    return res.status(400).json({ response: 'Invalid Email' });
   }
 
   if (!validator.isAlpha(req.body.city)) {
@@ -52,8 +57,12 @@ app.post('/save', async (req, res) => {
   let datainfo = new UserData(req.body);
   console.log("DATA IS" + datainfo);
   await datainfo.save();
+  res.render('sucess.pug', {
+    dataList: datainfo
+  })
   //  res.json(datainfo);
-  return res.redirect('./')
+ // return res.redirect('./')
+  
 });
 
 
@@ -69,6 +78,11 @@ app.get('/view', (req, res) => {
 // Validates a username
 function validateUsername(username) {
   return !validator.isEmpty(username) && validator.isAlphanumeric(username) && validator.isLength(username, { min: 6, max: 32 });
+}
+
+//validates a mobile no
+function validateMobileno(mobileno){
+  return !validator.isEmpty(mobileno) && validator.isMobilePhone(mobileno,'any') && validator.isLength(mobileno,{min:6,max:14 });
 }
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
